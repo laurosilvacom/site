@@ -2,6 +2,19 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { ViewTransitions } from "next-view-transitions";
 import { Analytics } from "@vercel/analytics/react";
+import { Inter, Roboto_Mono } from "next/font/google";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const roboto_mono = Roboto_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-roboto-mono",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://laurosilva.com"),
@@ -22,8 +35,8 @@ export default function RootLayout({
 }) {
   return (
     <ViewTransitions>
-      <html lang="en" className="bg-gray-100 text-gray-950">
-        <body className="antialiased font-sans text-base leading-relaxed">
+      <html lang="en" className={`${inter.variable} ${roboto_mono.variable}`}>
+        <body className="antialiased font-sans text-base leading-relaxed bg-[#010b14] text-gray-300">
           <div className="min-h-screen flex flex-col justify-between">
             <main className="flex-1 max-w-screen-md mx-auto w-full px-6 md:px-8 py-12">
               {children}
@@ -45,7 +58,7 @@ function Footer() {
   ];
 
   return (
-    <footer className="py-8 border-t border-gray-200">
+    <footer className="py-8 border-t border-slate-900">
       <div className="flex justify-center space-x-6">
         {links.map((link) => (
           <a
