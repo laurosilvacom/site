@@ -1,0 +1,80 @@
+import { AnimatedName } from '../animated-name.tsx';
+
+export const metadata = {
+  title: 'Work',
+  alternates: {
+    canonical: '/n/work',
+  },
+};
+
+export function Small({ children }) {
+  return (
+    <small className="flex text-sm text-gray-500 -mt-3 mb-3">{children}</small>
+  );
+}
+
+# Footprints Camp
+
+<AnimatedName />
+
+On a mission to build products developers [love](/n/devtools), and along the way, teach the next generation of developers. Here's a summary of my work so far.
+
+```ts
+import type { NextConfig } from 'next';
+import createMDX from '@next/mdx';
+import postgres from 'postgres';
+
+export const sql = postgres(process.env.POSTGRES_URL!, {
+  ssl: 'allow',
+});
+
+const nextConfig: NextConfig = {
+  pageExtensions: ['mdx', 'ts', 'tsx'],
+  async redirects() {
+    if (!process.env.POSTGRES_URL) {
+      return [];
+    }
+
+    let redirects = await sql`
+      SELECT source, destination, permanent
+      FROM redirects;
+    `;
+
+    return redirects.map(({ source, destination, permanent }) => ({
+      source,
+      destination,
+      permanent: !!permanent,
+    }));
+  },
+  experimental: {
+    mdxRs: true,
+  },
+};
+
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);
+```
+
+
+Text `const withMDX = createMDX({});` On a mission to build products developers [love](/n/devtools), and along the way, teach the next generation of developers. Here's a summary of my work so far.
+
+```ts
+import type { NextConfig } from 'next';
+export default withMDX(nextConfig);
+```
+
+
+On a mission to build products developers [love](/n/devtools), and along the way, teach the next generation of developers. Here's a summary of my work so far.
+
+Teach the next generation of developers. Here's a summary of my work so far. On a mission to build products developers [love](/n/devtools), and along the way, teach the next generation of developers. Here's a summary of my work so far.
+
+```ts
+import type { NextConfig } from 'next';
+import createMDX from '@next/mdx';
+import postgres from 'postgres';
+
+const withMDX = createMDX({});
+
+export default withMDX(nextConfig);
+```
