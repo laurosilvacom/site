@@ -1,0 +1,507 @@
+import { AnimatedName } from '../animated-name.tsx';
+
+export const metadata = {
+  title: 'Work',
+  alternates: {
+    canonical: '/articles/work',
+  },
+};
+
+# Building a Modern Design System Inspired by Apple: A Comprehensive Guide
+
+## Introduction
+
+Creating a cohesive and accessible design system is crucial for delivering a consistent user experience across web applications. This article provides an in-depth exploration of a design system inspired by Apple's design philosophy, explaining every element, pattern, and decision made. It serves as a guide for design engineers aiming to build their own systems, emphasizing principles of simplicity, clarity, and accessibility.
+
+---
+
+## Overview
+
+The design system focuses on:
+
+**Simplicity and Clarity**: Emphasizing content over decorative elements.
+
+**Consistency**: Uniform styles for components to enhance user familiarity.
+
+**Accessibility**: Ensuring all users can interact with the application effectively.
+
+**Dark Mode Support**: Respecting user preferences for light or dark themes.
+
+**Scalability**: Building a foundation that can grow with the application.
+
+---
+
+## Theme Colors
+
+Colors are foundational to any design system, influencing aesthetics and usability. The chosen palette aligns with Apple's Human Interface Guidelines, balancing vibrancy and subtlety.
+
+### Light Mode Theme Colors
+
+```css
+/* Light Mode Theme Colors */
+:root {
+    /* Background Colors */
+    --color-background: #fff; /* Pure White Background */
+    --color-surface: #f2f2f7; /* Light Gray for Elevated Surfaces */
+
+    /* Primary Colors */
+    --color-primary: #007aff; /* System Blue for interactive elements */
+
+    /* Text Colors */
+    --color-text-primary: #1c1c1e; /* Near black for primary text */
+    --color-text-secondary: rgba(28, 28, 30, 0.7); /* Secondary text (70% opacity) */
+    --color-text-tertiary: rgba(28, 28, 30, 0.3); /* Tertiary text (30% opacity) */
+    --color-placeholder: rgba(28, 28, 30, 0.18); /* Placeholder text (18% opacity) */
+
+    /* Divider Color */
+    --color-divider: #e3e3ed; /* Light gray divider */
+
+    /* System Label Colors */
+    --system-label: #1c1c1e; /* Primary labels */
+    --system-secondary-label: rgba(28, 28, 30, 0.7); /* Secondary labels */
+    --system-tertiary-label: rgba(28, 28, 30, 0.3); /* Tertiary labels */
+    --system-quaternary-label: rgba(28, 28, 30, 0.18); /* Quaternary labels */
+
+    /* Syntax Highlighting Colors */
+    --sh-identifier: var(--color-text-primary); /* Code identifiers */
+    --sh-keyword: #bf5af2; /* Keywords (Purple) */
+    --sh-string: #42a5f5; /* Strings (Light Blue) */
+    --sh-class: #cf9f17; /* Class names (Gold) */
+    --sh-property: #e0457b; /* Properties (Pink) */
+    --sh-entity: #00bc65; /* Entities/functions (Green) */
+    --sh-jsxliterals: #ff9f0a; /* JSX literals (Orange) */
+    --sh-sign: #8e8e93; /* Operators and signs (Gray) */
+    --sh-comment: #a3a3a8; /* Comments (Light Gray) */
+
+    /* Shadows and Borders */
+    --ds-shadow-small: 0 1px 3px rgba(60, 64, 67, 0.15); /* Soft small shadow */
+    --ds-shadow-medium: 0 4px 6px rgba(60, 64, 67, 0.2); /* Soft medium shadow */
+    --ds-border: 1px solid #d1d1d6; /* Light border */
+    --ds-border-light: 1px solid rgba(60, 60, 67, 0.18); /* Lighter border */
+
+    /* Others */
+    --color-link: #6a32ff; /* Link color */
+    --color-focus-ring: rgba(0, 122, 255, 0.4); /* Focus ring for accessibility */
+
+    /* Inset Borders */
+    --ds-inset-border: inset 0 0 0 1px rgba(0, 0, 0, 0.12); /* Subtle outlines */
+    --ds-inset-border-light: inset 0 0 0 1px rgba(0, 0, 0, 0.08); /* Lighter outlines */
+}
+```
+
+**Design Decisions:**
+
+- **Neutral Backgrounds**: A pure white background ensures content stands out.
+- **Elevated Surfaces**: A slightly darker `--color-surface` defines layers and depth.
+- **Consistent Text Hierarchy**: Using opacities to differentiate primary, secondary, and tertiary text creates a clear visual hierarchy.
+- **Accessible Syntax Highlighting**: Chosen colors for code elements enhance readability and align with common coding themes.
+- **Subtle Shadows and Borders**: Soft shadows and light borders add depth without overpowering the design.
+- **Distinct Link Color**: A vibrant link color (`#6a32ff`) ensures links are easily identifiable.
+
+### Dark Mode Theme Colors
+
+```css
+/* Dark Mode Theme Colors */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Background Colors */
+        --color-background: #0e0e0e; /* Pure Black Background */
+        --color-surface: #1c1c1e; /* Dark Gray for Elevated Surfaces */
+
+        /* Primary Colors */
+        --color-primary: #0a84ff; /* System Blue for dark mode */
+
+        /* Text Colors */
+        --color-text-primary: #ffffff; /* White for primary text */
+        --color-text-secondary: rgba(235, 235, 245, 0.7); /* Secondary text */
+        --color-text-tertiary: rgba(235, 235, 245, 0.3); /* Tertiary text */
+        --color-placeholder: rgba(235, 235, 245, 0.18); /* Placeholder text */
+
+        /* Divider Color */
+        --color-divider: #2c2c2e; /* Darker divider */
+
+        /* System Label Colors */
+        --system-label: #ffffff; /* Primary labels */
+        --system-secondary-label: rgba(235, 235, 245, 0.7); /* Secondary labels */
+        --system-tertiary-label: rgba(235, 235, 245, 0.3); /* Tertiary labels */
+        --system-quaternary-label: rgba(235, 235, 245, 0.18); /* Quaternary labels */
+
+        /* Syntax Highlighting Colors */
+        /* Colors adjusted for dark background contrast */
+        --sh-identifier: var(--color-text-primary);
+        --sh-keyword: #f2e75a; /* Yellow */
+        --sh-string: #639aff; /* Light Blue */
+        --sh-class: #ec6a5e; /* Coral */
+        --sh-property: #f4bf75; /* Gold */
+        --sh-entity: #56b6c2; /* Teal */
+        --sh-jsxliterals: #d19a66; /* Orange */
+        --sh-sign: #8e8e93; /* Gray */
+        --sh-comment: #7d7d80; /* Muted Gray */
+
+        /* Shadows and Borders */
+        --ds-shadow-small: 0 1px 3px rgba(0, 0, 0, 0.6);
+        --ds-shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.7);
+        --ds-border: 1px solid rgba(255, 255, 255, 0.2);
+        --ds-border-light: 1px solid rgba(255, 255, 255, 0.1);
+
+        /* Others */
+        --color-link: #17dce3; /* Adapted link color for dark mode */
+        --color-focus-ring: rgba(10, 132, 255, 0.5);
+
+        /* Inset Borders */
+        --ds-inset-border: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+        --ds-inset-border-light: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+}
+```
+
+**Design Decisions:**
+
+- **High Contrast Text**: White primary text ensures readability against dark backgrounds.
+- **Adjusted Accent Colors**: Colors are tweaked to provide sufficient contrast and vibrancy in dark mode.
+- **Consistent Syntax Highlighting**: Colors are selected to stand out without causing eye strain.
+
+---
+
+## Base Styles
+
+Establishing foundational styles ensures consistency across the application.
+
+```css
+/* Root HTML Element */
+html {
+    min-width: 360px;
+    scrollbar-gutter: stable;
+    font-size: 16px;
+}
+
+/* Body Element */
+body {
+    @apply m-0 p-0 font-normal antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.6;
+    -moz-osx-font-smoothing: grayscale;
+}
+```
+
+**Design Decisions:**
+
+- **Minimum Width**: Ensures content is accessible on small screens.
+- **Scrollbar Stability**: Prevents layout shifts when scrollbars appear.
+- **Base Font Size**: A standard font size for scalability with `rem` units.
+- **Text Rendering Enhancements**: Improves legibility and smoothness of fonts.
+
+---
+
+## Typography
+
+Typography communicates hierarchy and readability.
+
+```css
+/* Headings */
+h1,
+h2,
+h3,
+h4 {
+    @apply font-semibold mt-8 mb-4;
+    line-height: 1.3;
+    color: var(--color-text-primary);
+}
+
+h1 {
+    @apply text-3xl;
+}
+
+h2 {
+    @apply text-2xl;
+}
+
+h3 {
+    @apply text-xl;
+}
+
+h4 {
+    @apply text-lg;
+}
+
+/* Paragraphs */
+p {
+    @apply mb-6 text-base leading-relaxed;
+    color: var(--color-text-secondary);
+}
+
+hr {
+    @apply border-divider my-12;
+}
+```
+
+**Design Decisions:**
+
+- **Clear Hierarchy**: Distinct font sizes and weights for headings create an intuitive content structure.
+- **Readable Line Heights**: Slightly increased line heights for better readability.
+- **Consistent Spacing**: Margins ensure adequate whitespace, preventing content from feeling cramped.
+
+---
+
+## Links
+
+Links need to be identifiable and interactive.
+
+```css
+/* Links */
+a {
+    @apply text-link underline;
+    text-underline-position: from-font;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--system-secondary-label);
+    transition: text-decoration-color 0.3s ease-in-out;
+}
+
+a:hover {
+    text-decoration-color: var(--system-label);
+}
+```
+
+**Design Decisions:**
+
+- **Underline Styling**: Subtle underlines that enhance link recognition without overwhelming the text.
+- **Interactive Feedback**: Smooth transitions on hover improve user experience.
+
+---
+
+## Code Styling
+
+Code elements require special attention for readability.
+
+```css
+/* Code Blocks */
+pre {
+    @apply my-6 md:my-8 overflow-auto rounded-xl bg-surface p-4 text-sm shadow-ds-border md:shadow-ds-border-light md:-mx-10 -mx-0;
+    counter-reset: sh-line-number;
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    font-size: inherit;
+    line-height: inherit;
+    font-family: inherit;
+    color: inherit;
+}
+
+/* Line Numbers */
+pre code .sh__line::before {
+    counter-increment: sh-line-number 1;
+    content: counter(sh-line-number);
+    margin-right: 1.5rem;
+    text-align: right;
+    color: var(--system-tertiary-label);
+}
+
+/* Inline Code */
+code:not(pre code) {
+    @apply font-normal rounded px-3 py-1 text-sm bg-surface shadow-ds-border text-text-secondary;
+}
+```
+
+**Design Decisions:**
+
+- **Visual Distinction**: Background colors and shadows distinguish code blocks from regular text.
+- **Line Numbers**: Aids in code reference and readability.
+- **Consistency**: Inline code styling matches the overall design theme.
+
+---
+
+## Forms
+
+Forms are critical interaction points.
+
+```css
+/* Remove default styles from inputs */
+input[type="text"],
+input[type="email"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+```
+
+**Design Decisions:**
+
+- **Consistent Styling**: Resetting default appearances allows for applying custom styles consistently.
+- **Cross-Browser Compatibility**: Ensures inputs look and behave similarly across different browsers.
+
+---
+
+## Tables
+
+Tables need to be legible and responsive.
+
+```css
+table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    margin: 1.5rem 0;
+    border-collapse: collapse;
+    @apply text-text-secondary;
+}
+
+table th,
+table td {
+    @apply p-3 text-left border;
+    border-color: var(--ds-inset-border);
+}
+
+table th {
+    @apply bg-surface text-text-primary font-semibold;
+}
+```
+
+**Design Decisions:**
+
+- **Responsive Design**: Tables scroll horizontally on smaller screens without breaking layout.
+- **Clear Separation**: Borders and background colors distinguish headers and cells.
+- **Readable Text**: Adequate padding and text alignment enhance readability.
+
+---
+
+## Animations and Transitions
+
+Subtle animations enhance user experience without distraction.
+
+```css
+/* View Transition */
+.transition-element {
+    view-transition-name: lauro;
+}
+
+/* Animation for outgoing elements */
+::view-transition-old(lauro) {
+    animation: fade-out 0.8s ease-in-out;
+}
+
+/* Animation for incoming elements */
+::view-transition-new(lauro) {
+    animation: fade-in-up 0.4s ease-in-out;
+}
+
+/* Keyframes */
+@keyframes fade-out {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(24px); opacity: 0; }
+}
+
+@keyframes fade-in-up {
+    0% { transform: translateY(24px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Fallback */
+@supports (view-transition-name: none) {
+    .fade-in {
+        animation: fade-in 0.8s ease-in-out forwards;
+        opacity: 0;
+    }
+}
+```
+
+**Design Decisions:**
+
+- **Smooth Transitions**: Animations are timed to feel natural and not intrusive.
+- **Accessibility Considerations**: Fallbacks ensure animations don't hinder usability on unsupported browsers.
+
+---
+
+## Tailwind CSS Configuration
+
+Integrating the design system into Tailwind CSS allows for utility-first styling.
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    // Paths to all components
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
+  ],
+  darkMode: "media", // Respect user's system preference
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)", "sans-serif"],
+        mono: ["var(--font-commitmono)", "monospace"],
+      },
+      colors: {
+        // Backgrounds and Surfaces
+        background: "var(--color-background)",
+        surface: "var(--color-surface)",
+
+        // Primary Color
+        primary: "var(--color-primary)",
+
+        // Text Colors
+        text: {
+          primary: "var(--color-text-primary)",
+          secondary: "var(--color-text-secondary)",
+          tertiary: "var(--color-text-tertiary)",
+          placeholder: "var(--color-placeholder)",
+        },
+
+        // Divider
+        divider: "var(--color-divider)",
+
+        // System Label Colors
+        "system-label": "var(--system-label)",
+        "system-secondary-label": "var(--system-secondary-label)",
+        "system-tertiary-label": "var(--system-tertiary-label)",
+        "system-quaternary-label": "var(--system-quaternary-label)",
+
+        // Link Color
+        link: "var(--color-link)",
+
+        // Brand Color (if applicable)
+        brand: "var(--brand-color)",
+      },
+      boxShadow: {
+        "ds-inset-border": "var(--ds-inset-border)",
+        "ds-inset-border-light": "var(--ds-inset-border-light)",
+        "shadow-small": "var(--ds-shadow-small)",
+        "shadow-medium": "var(--ds-shadow-medium)",
+        "ds-border": "var(--ds-border)",
+        "ds-border-light": "var(--ds-border-light)",
+      },
+      borderColor: {
+        DEFAULT: "var(--ds-border)",
+        light: "var(--ds-border-light)",
+      },
+      ringColor: {
+        DEFAULT: "var(--color-focus-ring)",
+      },
+    },
+  },
+  plugins: [],
+};
+```
+
+**Design Decisions:**
+
+- **Custom Variables**: Mapping CSS variables to Tailwind allows for easy theming and dark mode support.
+- **Utility Classes**: Extending utilities with custom styles promotes consistency and reduces redundancy.
+- **Font Families**: Using custom fonts ensures typography aligns with design goals.
+
+---
+
+## Conclusion
+
+This design system encapsulates a comprehensive approach to building web applications that are modern, accessible, and user-friendly. By meticulously defining every aspect, from colors to typography and interactions, we ensure a cohesive user experience.
+
+**Key Takeaways for Design Engineers:**
+
+- **Consistency is Crucial**: Uniform styling across components builds trust and familiarity with users.
+- **Accessibility as a Priority**: Designing with all users in mind enhances overall usability.
+- **Simplicity and Clarity**: Following Apple's design principles helps in creating intuitive and elegant interfaces.
+- **Scalability and Flexibility**: A well-structured design system can adapt to new requirements and growth.

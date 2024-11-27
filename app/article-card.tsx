@@ -11,10 +11,16 @@ const Article: React.FC<ArticleProps> = ({ title, description, link }) => {
   return (
     <Link
       href={link}
-      className="-mx-3 flex flex-col rounded-md px-3 no-underline hover:no-underline hover:bg-gray-300 sm:py-3"
+      className="block p-4 hover:bg-surface rounded-lg no-underline transition-colors hover:bg-hover mb-4 border-divider border"
     >
-      <span className="text-gray-1200">{title}</span>
-      <span className="text-gray-1000">{description}</span>
+      <span>
+        <h2 className="text-text-primary text-base font-medium mb-1">
+          {title}
+        </h2>
+        <p className="text-text-secondary text-sm leading-snug">
+          {description}
+        </p>
+      </span>
     </Link>
   );
 };
