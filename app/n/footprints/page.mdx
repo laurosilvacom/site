@@ -60,16 +60,51 @@ export default withMDX(nextConfig);
 Text `const withMDX = createMDX({});` On a mission to build products developers [love](/n/devtools), and along the way, teach the next generation of developers. Here's a summary of my work so far.
 
 ```ts
-import type { NextConfig } from 'next';
-export default withMDX(nextConfig);
+import { CodeBlock } from 'geist/components';
+import type { JSX } from 'react';
+
+const code = `function MyComponent(props) {
+  return (
+    <div>
+      <h1>Hello, {props.name}!</h1>
+      <p>This is an example React component.</p>
+    </div>
+  );
+}`;
+
+export function Component(): JSX.Element {
+  return (
+    <CodeBlock aria-label="Hello world" filename="Table.jsx" language="jsx">
+      {code}
+    </CodeBlock>
+  );
+}
 ```
 
+```tsx
+function MyComponent(props) {
+  return (
+    <div>
+      <h1>Hello, {props.name}!</h1>
+      <p>This is an example React component.</p>
+    </div>
+  );
+}
+```
+
+## Testing
 
 On a mission to build products developers [love](/n/devtools), and along the way, teach the next generation of developers. Here's a summary of my work so far.
 
-Teach the next generation of developers. Here's a summary of my work so far. On a mission to build products developers [love](/n/devtools), and along the way, teach the next generation of developers. Here's a summary of my work so far.
+## Expanding toasts
 
-```ts
+We calculate the expanded position of each toast by adding the heights of all preceding toasts and the gap between them. This value will become the new translateY when the user hovers over the toast area.
+
+## React 19 Rendering
+
+Teach the next generation of developers. Here's a summary of my work so far. On a mission to [products developers](/n/devtools), and along the way, teach the next generation of developers. Here's a summary of my work so far. Teach the next generation of developers. Here's a summary of my work so far. On a mission to build products developers [love](/n/devtools), and along the way, teach the next generation of developers. Here's a summary of my work so far.
+
+```ts {3,5-7}
 import type { NextConfig } from 'next';
 import createMDX from '@next/mdx';
 import postgres from 'postgres';
@@ -77,4 +112,33 @@ import postgres from 'postgres';
 const withMDX = createMDX({});
 
 export default withMDX(nextConfig);
+```
+
+## DevTools for Good
+
+Teach the next generation of developers. Here's a summary of my work so far. On a mission to build products developers [love](/n/devtools), and along the way, teach the next generation of developers. Here's a summary of my work so far.
+
+Teach the next generation `const email = searchParams.get("email");` of developers.
+
+Here's a summary of my work so far. On a mission to build products developers [love](/n/devtools), and along the way, teach the next generation of developers. Here's a summary of my work so far.
+
+```tsx
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const email = searchParams.get("email");
+
+  const res = await fetch(
+    `https://api.lemonsqueezy.com/v1/customers?filter[email]=${email}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.LEMON_SQUEEZY_KEY}`,
+        Accept: "application/json",
+      },
+    }
+  );
+
+  const { data: foundCustomers } = await res.json();
+
+  // ...
+}
 ```

@@ -5,16 +5,16 @@ import { highlight } from "sugar-high";
 
 const components: MDXComponents = {
   h1: (props: React.ComponentPropsWithoutRef<"h1">) => (
-    <h1 className="font-medium pt-12 mb-0 fade-in" {...props} />
+    <h1 className="font-bold text-gray-1200 pt-12 mb-0 fade-in" {...props} />
   ),
   h2: (props: React.ComponentPropsWithoutRef<"h2">) => (
-    <h2 className="text-gray-800 font-medium mt-8 mb-3" {...props} />
+    <h2 className="text-gray-1200 font-bold mt-12 mb-3" {...props} />
   ),
   h3: (props: React.ComponentPropsWithoutRef<"h3">) => (
-    <h3 className="text-gray-800 font-medium mt-8 mb-3" {...props} />
+    <h3 className="text-gray-1200 font-semibold mt-12 mb-3" {...props} />
   ),
   h4: (props: React.ComponentPropsWithoutRef<"h4">) => (
-    <h4 className="font-medium" {...props} />
+    <h4 className="font-semibold" {...props} />
   ),
   p: (props: React.ComponentPropsWithoutRef<"p">) => (
     <p className="text-gray-800 leading-snug" {...props} />
@@ -29,13 +29,13 @@ const components: MDXComponents = {
     <li className="pl-1" {...props} />
   ),
   em: (props: React.ComponentPropsWithoutRef<"em">) => (
-    <em className="font-medium" {...props} />
+    <em className="font-semibold" {...props} />
   ),
   strong: (props: React.ComponentPropsWithoutRef<"strong">) => (
     <strong className="font-medium" {...props} />
   ),
   a: ({ href, children, ...props }: React.ComponentPropsWithoutRef<"a">) => {
-    const className = "text-red-500 hover:text-red-700";
+    const className = "text-gray-1100 hover:text-gray-1200 underline";
     if (href?.startsWith("/")) {
       return (
         <Link href={href} className={className} {...props}>
